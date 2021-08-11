@@ -7,6 +7,8 @@
 This is a netflix clone, which means there is no real functionality, other than showing the front page with its featured movie and movie lists separated by theme.
 
 ## 🧪Technologies
+- [React](https://reactjs.org)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## 💨 Running the Project
 
