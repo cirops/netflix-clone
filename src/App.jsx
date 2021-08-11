@@ -12,16 +12,17 @@ const App = () => {
   const [movieList, setMovieList] = useState([])
   const [featuredData, setFeaturedData] = useState(null)
   const [blackHeader, setBlackHeader] = useState(false);
+
   useEffect(() => {
     const loadAll = async () => {
       const list = await getHomeList();
-      setMovieList(list);
 
       const originals = list.filter((item) => item.slug === 'originals');
       const randomChosen = Math.floor((Math.random() * originals[0].items.results.length - 1));
       const chosenMovie = originals[0].items.results[randomChosen];
       const movieInfo = await getMovieInfo(chosenMovie.id, 'tv');
 
+      setMovieList(list);
       setFeaturedData(movieInfo);
     }
 

@@ -1,15 +1,15 @@
 import React from 'react';
-import './FeaturedMovie.css'
+
+import './styles.css'
 
 const FeaturedMovie = ({ item }) => {
-  console.log(item.genres)
-
   const firstAirDate = new Date(item.first_air_date);
+
   return (
     <section className="featured" style={{
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`
+      backgroundImage: item.backdrop_path ? `url(https://image.tmdb.org/t/p/original${item.backdrop_path})` : ''
     }}>
       <div className="featured--vertical">
         <div className="featured--horizontal">
