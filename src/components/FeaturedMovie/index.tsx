@@ -1,8 +1,15 @@
 import React from 'react';
 
+import { FeaturedMovieProps } from '../../App';
+
 import './styles.css'
 
-const FeaturedMovie = ({ item }) => {
+interface itemProps {
+  item: FeaturedMovieProps;
+}
+
+
+const FeaturedMovie = ({ item }: itemProps) => {
   const firstAirDate = new Date(item.first_air_date);
 
   return (

@@ -7,20 +7,45 @@ import Header from './components/Header';
 
 import './App.css';
 
+export interface MovieListItemProps {
+  id: string;
+  poster_path: string;
+}
+
+interface MovieListProps {
+  slug: string;
+  title: string;
+  items: {
+    results: MovieListItemProps[];
+  };
+};
+
+export interface FeaturedMovieProps {
+  id: number;
+  backdrop_path: string;
+  original_name: string;
+  first_air_date: string;
+  vote_average: number;
+  number_of_seasons: number;
+  overview: string;
+  genres: {
+    name: string;
+  }[];
+}
 
 const App = () => {
-  const [movieList, setMovieList] = useState([])
-  const [featuredData, setFeaturedData] = useState(null)
+  const [movieList, setMovieList] = useState<MovieListProps[]>([])
+  const [featuredData, setFeaturedData] = useState<FeaturedMovieProps | null>(null)
   const [blackHeader, setBlackHeader] = useState(false);
 
   useEffect(() => {
     const loadAll = async () => {
-      const list = await getHomeList();
+      const list = await getHomeList() as MovieListProps[];
 
       const originals = list.filter((item) => item.slug === 'originals');
       const randomChosen = Math.floor((Math.random() * originals[0].items.results.length - 1));
       const chosenMovie = originals[0].items.results[randomChosen];
-      const movieInfo = await getMovieInfo(chosenMovie.id, 'tv');
+      const movieInfo = await getMovieInfo(chosenMovie.id, 'tv') as FeaturedMovieProps;
 
       setMovieList(list);
       setFeaturedData(movieInfo);
@@ -54,7 +79,7 @@ const App = () => {
         {movieList.map((item, key) => (
           <MovieRow
             key={key} title={item.title}
-            items={item.items}
+            items={item.items.results}
           />
         ))}
       </section>

@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
+import { MovieListItemProps } from '../../App';
+
 import './styles.css';
 
-const MovieRow = ({ title, items }) => {
+interface MovieRowProps {
+  title: string;
+  items: MovieListItemProps[];
+}
+
+
+const MovieRow = ({ title, items }: MovieRowProps) => {
   const [scrollX, setScrollX] = useState(0);
 
-  const handleLeftArrow = (event) => {
+  const handleLeftArrow = (event: MouseEvent) => {
     setScrollX((currentScroll) => {
       let xOffset = currentScroll + Math.round(window.innerWidth / 2);
       if (xOffset > 0) {
@@ -18,11 +26,11 @@ const MovieRow = ({ title, items }) => {
     })
   }
 
-  const handleRightArrow = (event) => {
+  const handleRightArrow = (event: MouseEvent) => {
     setScrollX((currentScroll) => {
       let xOffset = currentScroll - Math.round(window.innerWidth / 2);
 
-      let listWidth = items.results.length * 150;
+      let listWidth = items.length * 150;
 
       if ((window.innerWidth - listWidth) > xOffset) {
         xOffset = window.innerWidth - listWidth - 60;
@@ -46,11 +54,11 @@ const MovieRow = ({ title, items }) => {
       <div className="movieRow--listarea">
         <div className="movieRow--list" style={{
           marginLeft: scrollX,
-          width: items.results.length * 150
+          width: items.length * 150
         }}>
           {
-            items.results.length && (
-              items.results.map((item, key) => (
+            items.length && (
+              items.map((item, key) => (
                 <div key={key} className="movieRow--item">
                   <img src={
                     `https://image.tmdb.org/t/p/w300${item.poster_path}`

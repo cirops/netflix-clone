@@ -2,7 +2,11 @@ import React from 'react';
 
 import './styles.css';
 
-const Header = ({ black }) => {
+interface HeaderProps {
+  black: boolean;
+}
+
+const Header = ({ black }: HeaderProps) => {
   return (
     <header className={black ? 'black' : ''}>
       <div className="header--logo">
